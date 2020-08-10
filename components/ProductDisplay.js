@@ -41,6 +41,10 @@ app.component('product-display', {
           </button>
         </div>
       </div>
+      <div>
+        <review-form @review-submitted="addReview"></review-form>
+        <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+      </div>
     </div>`,
   data() {
     return {
@@ -48,6 +52,7 @@ app.component('product-display', {
       brand: 'Vue Mastery',
       selectedVariant: 0,
       details: ['50% cotton', '30% wool', '20% polyester'],
+      reviews: [],
       variants: [
         {
           id: 2234,
@@ -73,6 +78,9 @@ app.component('product-display', {
     },
     removeItem() {
       this.$emit('remove-item', this.variants[this.selectedVariant].id)
+    },
+    addReview(review) {
+      this.reviews.push(review)
     }
   },
   computed: {
