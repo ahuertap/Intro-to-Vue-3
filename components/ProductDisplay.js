@@ -32,6 +32,13 @@ app.component('product-display', {
           >
             Add to cart
           </button>
+          <button
+            :class ="{ disabledButton: !inStock }"
+            class="button" @click="removeItem"
+            :disabled="!inStock"
+          >
+            Remove
+          </button>
         </div>
       </div>
     </div>`,
@@ -52,17 +59,20 @@ app.component('product-display', {
           id: 2235,
           color: 'blue',
           image: './assets/images/socks_blue.jpg',
-          quantity: 0
+          quantity: 12
         }
       ]
     }
   },
   methods: {
     addToCart() {
-      this.cart += 1
+      this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
     },
     updateVariant(index) {
       this.selectedVariant = index
+    },
+    removeItem() {
+      this.$emit('remove-item', this.variants[this.selectedVariant].id)
     }
   },
   computed: {
