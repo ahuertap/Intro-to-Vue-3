@@ -18,7 +18,13 @@
             <img :src="image" :alt="product">
           </div>
           <div class="product-info">
-            {{ product }}
+            <h1>{{ product }}</h1>
+            <p v-if="inStock">In stock</p>
+            <p v-else>Out of stock</p>
+            <ul>
+              <li v-for="(detail, index) in details" :key="index">{{ detail }}</li>
+            </ul>
+            <div v-for="variant in variants" :key="variant.id">{{ variant.color }}</div>
           </div>
         </div>
       </div>
